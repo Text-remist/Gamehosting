@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings</title>
+  <!-- Include Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-900 text-white">
+
+  <div class="form-container flex justify-center items-center h-screen">
+    <nav class="form-mini-button">
+      <a href="{{ url_for('dashboard') }}" class="text-gray-300 hover:text-gray-400 block mb-4">Back</a>
+      <a href="{{ url_for('logout') }}" class="text-gray-300 hover:text-gray-400 block">Logout</a>
+    </nav>
+  </div>
+
+</body>
+
+</html>

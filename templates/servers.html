@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server List</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Dark mode toggle script -->
+    <script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            html.classList.toggle('dark');
+        }
+    </script>
+      <style>
+    .modal {
+      display: none;
+    }
+    .modal.active {
+      display: flex;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+    <header class="bg-gray-800 py-4">
+        <div class="container mx-auto flex items-center justify-between">
+            <h1 class="text-3xl font-bold">Game Server Hosting</h1>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="{{url_for('home')}}" class="hover:text-gray-400">Home</a></li>
+                    <li><a href="{{url_for('servers')}}" class="hover:text-gray-400">Servers</a></li>
+                    <li><a href="{{url_for('dashboard')}}" class="hover:text-gray-400">Dashboard</a></li>
+                    <li><a href="{{url_for('home')}}"" class="hover:text-gray-400">About</a></li>
+                    <li><a href="{{url_for('home')}}" class="hover:text-gray-400">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+    <h1 class="text-3xl font-semibold mb-8">Public Servers</h1>
+
+    <!-- Server Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
+
+{% block body %}
+    {% for server in server_list %}
+        <div id="openModal" onclick="openModal('https://{{server.server_name}}.gamehosting.com', '{{server.game_id}}','{{server.server_name}}', '{{server.player_count}}', '{{server.server_status}}')" class="bg-gray-800 dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+            <div class="px-6 py-4">
+                <img src="{{ url_for('static', filename='img/' + server.game_id + '_header.jpg') }}" onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/backup_image.jpg') }}';" alt="Library Hero 2x Image" class="block mb-4 rounded-lg">
+
+                <h3 class="text-lg font-semibold mb-2 text-gray-200 dark:text-gray-300">{{server.server_name}}</h3>
+                   {% if server.server_status == "online" %}
+                    <p class="text-sm text-gray-400 dark:text-gray-500">Status: <span class="text-green-400 dark:text-green-300 font-semibold">{{server.server_status}}</span></p>
+                    <div class="flex items-center text-blue-400">
+                    <svg id="mdi-account" viewBox="0 0 24 24" class="h-6 w-6 text-current">
+                    <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" fill="currentColor"></path></svg>
+                    <span class="ml-2">{{server.player_count}}</span>
+                    </div>
+                </div>
+                <div class="text-right">
+                {% elif server.server_status == "offline" %}
+                <p class="text-sm text-gray-400 dark:text-gray-500">Status: <span class="text-red-400 dark:text-red-300 font-semibold" >{{server.server_status}}</span></p>
+                <!-- Add more server data as needed -->
+                {% endif %}
+
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+          <div id="modal" class="modal fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+    <div class="bg-gray-900 rounded-lg shadow-md overflow-hidden max-w-lg w-full p-6">
+      <div class="flex justify-between items-center">
+        <h2 id='modalh2' class="text-2xl font-semibold text-gray-200">Join Server</h2>
+        <button id="closeModal" class="text-gray-200 hover:text-gray-400">&times;</button>
+      </div>
+      <div class="mt-4 text-gray-300 ">
+          <img id="copyimg" src="{{ url_for('static', filename='img/' + '730' + '_header.jpg') }}" onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/backup_image.jpg') }}';" alt="Library Hero 2x Image" class="block mb-4 rounded-lg">
+        <p>This Server's Address is
+		<a href="#" id="copyLink" onclick="copyToClipboard('https://mycoolserver.gamehosting.com')"class="text-blue-400 hover:underline">mycoolserver.gamehosting.com</a>
+		</p>
+      </div>
+
+    </div>
+  </div>
+    </div>
+
+</div>
+  <script>// Function to open the modal with the specified URL
+function openModal(url, game_id, server_name, player_count, server_status) {
+    document.getElementById('modal').classList.add('active');
+    document.getElementById('copyLink').setAttribute('onclick', `copyToClipboard('${url}')`);
+    document.getElementById('copyLink').innerHTML = url.substring(8);
+    document.getElementById('modalh2').innerHTML = "Join " + server_name;
+    var imgElement = document.getElementById('copyimg');
+    var primaryImgSrc = `/static/img/${game_id}_header.jpg`;
+    var backupImgSrc = `/static/img/backup_image.jpg`;  // Adjust the path as necessary
+
+    imgElement.src = primaryImgSrc;
+
+    imgElement.onerror = function() {
+        this.onerror = null;
+        this.src = backupImgSrc;
+    };
+}
+
+
+    // Function to close the modal
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+    }
+
+    // Close the modal when clicking outside of it
+    window.addEventListener('click', function(event) {
+      if (event.target === document.getElementById('modal')) {
+        closeModal();
+      }
+    });
+
+    // Function to copy text to clipboard
+function copyToClipboard(link) {
+    event.preventDefault();
+
+    // Check if navigator.clipboard is supported
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(link);
+    } else {
+        // Fallback for browsers that do not support navigator.clipboard
+        console.log('Copying to clipboard is not supported in your browser.');
+    }
+}
+
+
+    // Event listeners for closing the modal
+    document.getElementById('closeModal').addEventListener('click', closeModal);</script>
+</body>
+</html>

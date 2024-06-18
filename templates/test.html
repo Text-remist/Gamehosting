@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Popup Example</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .modal {
+      display: none;
+    }
+    .modal.active {
+      display: flex;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+  <!-- Server Information Card -->
+  <div class="bg-gray-800 dark:bg-gray-700 rounded-lg shadow-md overflow-hidden">
+    <div class="px-6 py-4">
+      <img src="your-image-url.jpg" alt="Library Hero 2x Image" class="block mb-4 rounded-lg">
+      <h3 class="text-lg font-semibold mb-2 text-gray-200 dark:text-gray-300">Server Name</h3>
+      <p class="text-sm text-gray-400 dark:text-gray-500">Status: <span class="text-green-400 dark:text-green-300">Online</span></p>
+      <div class="flex items-center text-green-400">
+        <svg id="mdi-account" viewBox="0 0 24 24" class="h-6 w-6 text-current">
+          <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" fill="currentColor"></path>
+        </svg>
+        <span class="ml-2">Player Count</span>
+      </div>
+      <div class="text-right mt-4">
+        <button id="openModal" class="bg-gray-900 text-white font-bold py-2 px-4 rounded">
+          Join Now!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup modal -->
+  <div id="modal" class="modal fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+    <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden max-w-lg w-full p-6">
+      <div class="flex justify-between items-center">
+        <h2 class="text-2xl font-semibold text-gray-200">Join Server</h2>
+        <button id="closeModal" class="text-gray-200 hover:text-gray-400">&times;</button>
+      </div>
+      <div class="mt-4 text-gray-300 ">
+        <p>This Server's Address is 
+		<a href="#" id="copyLink" onclick="copyToClipboard('https://mycoolserver.gamehosting.com')"class="text-blue-400 hover:underline">mycoolserver.gamehosting.com</a>
+		</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // JavaScript to handle the popup
+    document.getElementById('openModal').addEventListener('click', function() {
+      document.getElementById('modal').classList.add('active');
+    });
+
+    document.getElementById('closeModal').addEventListener('click', function() {
+      document.getElementById('modal').classList.remove('active');
+    });
+
+
+    // Close the modal when clicking outside of it
+    window.addEventListener('click', function(event) {
+      if (event.target === document.getElementById('modal')) {
+        document.getElementById('modal').classList.remove('active');
+      }
+    });
+
+    function copyToClipboard(link) {
+      event.preventDefault();
+      navigator.clipboard.writeText(link);
+      };
+  </script>
+
+</body>
+</html>
