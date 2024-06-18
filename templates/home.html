@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Server Hosting</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white">
+
+    <header class="bg-gray-800 py-4">
+        <div class="container mx-auto flex items-center justify-between">
+            <h1 class="text-3xl font-bold">Game Server Hosting</h1>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="{{url_for('home')}}" class="hover:text-gray-400">Home</a></li>
+                    <li><a href="{{url_for('servers')}}" class="hover:text-gray-400">Servers</a></li>
+                    <li><a href="{{url_for('dashboard')}}" class="hover:text-gray-400">Dashboard</a></li>
+                    <li><a href="{{url_for('home')}}"" class="hover:text-gray-400">About</a></li>
+                    <li><a href="{{url_for('home')}}" class="hover:text-gray-400">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">Welcome to Game Server Hosting</h2>
+                <p class="text-gray-300">Find the perfect game server for your needs.</p>
+            </div>
+
+            <div class="col-span-2 space-y-4">
+                <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+                    <h2 class="text-2xl font-bold mb-4">Featured Servers</h2>
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="text-xl font-bold">Wurm Unlimited Server</h3>
+                            <div class="container mx-auto p-4">
+                            <img src="{{ url_for('static', filename='img/366220_header.jpg') }}" alt="Library Hero 2x Image" class="block mb-4">
+                            </div>
+                <p class="text-sm text-gray-400 dark:text-gray-500">IP Address: 192.168.1.2</p>
+                                <p class="text-sm text-gray-400 dark:text-gray-500">Player Count: <span class="text-red-400 dark:text-red-300">20</span></p>
+                <p class="text-sm text-gray-400 dark:text-gray-500">Status: <span class="text-green-400 dark:text-green-300">Online</span></p>
+                        </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg mt-4">
+                        <h3 class="text-xl font-bold">Project Zomboid Server</h3>
+                            <div class="container mx-auto p-4">
+                            <img src="{{ url_for('static', filename='img/108600_header.jpg') }}" alt="Library Hero 2x Image" class="block mb-4">
+                            </div>
+                        <div class="text-red-500 flex items-center space-x-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 325" fill="currentColor" class="w-6 h-6">
+        <!-- Font Awesome SVG path data -->
+                        <path d="M192 64C86 64 0 150 0 256S86 448 192 448H448c106 0 192-86 192-192s-86-192-192-192H192zM496 168a40 40 0 1 1 0 80 40 40 0 1 1 0-80zM392 304a40 40 0 1 1 80 0 40 40 0 1 1 -80 0zM168 200c0-13.3 10.7-24 24-24s24 10.7 24 24v32h32c13.3 0 24 10.7 24 24s-10.7 24-24 24H216v32c0 13.3-10.7 24-24 24s-24-10.7-24-24V280H136c-13.3 0-24-10.7-24-24s10.7-24 24-24h32V200z"/>
+                        </svg>
+                        <p class="mt-1">46</p>
+                        </div>
+                        <p>RAM: 8 GB</p>
+                        <p>Storage: 500 GB SSD</p>
+                        <p>Price: $50/month</p>
+                        <a href="/purchase" class="inline-block mt-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Purchase Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 py-4 mt-8">
+        <div class="container mx-auto text-center">
+            <p class="text-gray-300">Contact us at support@example.com for any inquiries.</p>
+        </div>
+    </footer>
+</body>
+</html>
